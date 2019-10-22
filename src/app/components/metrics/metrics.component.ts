@@ -322,7 +322,7 @@ export class MetricsComponent implements OnInit {
     this.view_metrics(val1)
   }
  get_id(val1,val2){
-   alert(val1)
+  //  alert(val1)
   //  
 
   this.http.get_page(val1,val2).subscribe(
