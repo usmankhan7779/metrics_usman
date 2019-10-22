@@ -1,0 +1,19 @@
+<section>
+  <div class="login-card">
+    <h6 class="form-heading"> Acesse Sua Conta</h6>
+    <form role="form" #f="ngForm" novalidate>
+      <div class="form-group">
+        <input type="email" class="form-control" [(ngModel)]="model.username" aria-describedby="emailHelp"
+          name="username" placeholder="Informe sua E-mail">
+
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" [(ngModel)]="model.password" name="password"
+          placeholder="Informe sua Senha">
+
+
+      </div>
+      <button type="submit" (click)="onLogin()" class="btn btn-success w-100">Acesse</button>
+    </form>
+  </div>
+</section>

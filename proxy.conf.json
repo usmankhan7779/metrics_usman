@@ -1,0 +1,7 @@
+{
+  "/auth": {
+    "target": "http://septemsystems.com/",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

@@ -1,0 +1,177 @@
+<section id="metrics">
+  <!-- header start -->
+  <div class="header">
+    <div>
+      <a class="text-primary p-1 cursor_pointer" href="#">
+        <i class="fa fa-bars"></i>
+      </a>
+    </div>
+    <div class="search">
+      <form>
+        <div class="form-group ">
+          <input #query (ngModelChange)="search(query.value)" [(ngModel)]="getsearch" class="form-control "
+            name="getsearch" placeholder="Search by buyr etc" type="email">
+          <ul *ngIf="searchResult.length>0" class="list-group" style="position:absolute;">
+            <li (click)="setFilter(item)" *ngFor="let item of searchResult" class="list-group-item">
+              {{item?.name}}
+            </li>
+          </ul>
+        </div>
+
+      </form>
+    </div>
+    <div class="profilePic">
+      <div class="profile_img  dropdown-toggle" data-toggle="dropdown">
+        <img alt="img" src="../../../assets/default.png">
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">Option 1</a>
+          <a class="dropdown-item" href="#">Option 2</a>
+          <a (click)="logout()" class="dropdown-item">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- header end -->
+  <!-- dashboard Start -->
+  <div class="dashboard p-2">
+    <div class="heading_and_date m-0">
+      <div>
+        <h2 class="dashboard_name">{{dashboardname}}</h2>
+      </div>
+      <div class=" p-1 date_div">
+        <span (click)="select=!select" class="btn btn-primary btn-file">
+          <i class="far fa-calendar-alt"></i>
+          Today
+          <!-- <input type="text" class="w-80" id="datepicker"> -->
+        </span>
+        <ul *ngIf="metrics?.periodOptions?.length>0 && select==true" class="list-group">
+          <li (click)="selectPerios(period)" *ngFor="let period of metrics?.periodOptions" class="list-group-item">
+            {{period?.name}}
+          </li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="dashboard_tabs">
+
+      <ul class="nav nav-tabs">
+        <li class="nav-item" *ngFor="let opt of metrics?.viewOptions">
+          <a class="nav-link " (click)="selectViews(opt?.id)" data-toggle="tab" href="#products">{{opt?.name}}</a>
+        </li>
+
+      </ul>
+      <!-- id: 11
+name: "VALOR_POR_VOLUME"
+percent: -100
+selected: false
+value: 0-->
+      <!-- Tab panes start-->
+      <div class="tab-content">
+        <!-- Products start -->
+        <div class="container tab-pane active p-0" id="products"><br>
+
+          <div class="box-wraper">
+            <!--  -->
+            <div class="box-one" *ngFor="let data of metrics">
+              <label class="w-100">
+                {{data.name}}
+
+                <span class="float-right"><i class="far fa-dot-circle"></i>
+                </span>
+              </label>
+              <h4>
+                <b>
+                  <i aria-hidden="true" class="fas fa-dollar-sign"></i>{{data.value | number }}
+                </b>
+              </h4>
+              <p class="text-success m-0">
+                <i aria-hidden="true" class="fa fa-arrow-up mr-1"></i>{{data.percent}}%
+              </p>
+              <button (click)="getvalue(data.id)">
+                Show Graph
+              </button>
+            </div>
+
+            <!--  -->
+          </div>
+          <!-- upper boxes ends -->
+          <!-- graph start -->
+          <div class="w-100 p-2">
+            <div class="graph_div">
+              <!-- <label>Show Graph here</label> -->
+              <canvas style="display: block; height: 600px; width: 1085px;" id="chart1">
+                {{chart}}
+              </canvas>
+            </div>
+          </div>
+          <div class="w-100 p-2">
+            <div class="graph_div">
+              <!-- <label>Show Graph here</label> -->
+              <canvas style="display: block; height: 600px; width: 1085px;" id="chart2">
+                {{chart2}}
+              </canvas>
+            </div>
+          </div>
+          <!-- graph ends -->
+          <!-- Response table start -->
+          <div class="w-100  response-table">
+            <label><b>Table </b></label>
+            <table class="table ">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Type</th>
+
+                  <th>Get Record</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of tablview[0]?.columns">
+                  <td>{{data?.name}}</td>
+                  <td>{{data?.type}}</td>
+
+                  <td><i class="fas fa-check text-success" (click)="get_id(tablview[0].id,tablview[0].pageSize)" ></i></td>
+                </tr>
+                <!-- <tr>
+                <td>02/15</td>
+                <td>Place name</td>
+                <td>john adward</td>
+                <td><i class="fas fa-check text-success"></i></td>
+              </tr>
+              <tr>
+                <td>02/15</td>
+                <td>Place name</td>
+                <td>john adward</td>
+                <td><i class="fas fa-check text-success"></i></td>
+              </tr>
+              <tr>
+                <td>02/15</td>
+                <td>Place name</td>
+                <td>john adward</td>
+                <td><i class="fas fa-check text-success"></i></td>
+              </tr>
+              <tr>
+                <td>02/15</td>
+                <td>Place name</td>
+                <td>john adward</td>
+                <td><i class="fas fa-check text-success"></i></td>
+              </tr> -->
+              </tbody>
+            </table>
+          </div>
+          <!-- Response table start -->
+
+        </div>
+        <!-- Products end -->
+        <div class="container tab-pane fade p-0" id="subscriptions"><br>
+          <h3>subscriptions </h3>
+          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          </p>
+        </div>
+      </div>
+      <!-- tab panes end -->
+
+    </div>
+  </div>
+  <!-- Dashboard End -->
+</section>
